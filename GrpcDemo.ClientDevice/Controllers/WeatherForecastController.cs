@@ -3,6 +3,7 @@ using Grpc.Core;
 using Grpc.Net.Client;
 using GrpcDemo.Server.Protos;
 using Microsoft.AspNetCore.Mvc;
+using System.Text.Json;
 
 namespace GrpcDemo.ClientDevice.Controllers
 {
@@ -40,11 +41,15 @@ namespace GrpcDemo.ClientDevice.Controllers
 
             var httpHandler = new HttpClientHandler();
             httpHandler.ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator;
-            var channel = GrpcChannel.ForAddress("https://localhost:7119", new GrpcChannelOptions { HttpHandler = httpHandler });
 
+            var channel = GrpcChannel.ForAddress("https://localhost:7119", new GrpcChannelOptions { HttpHandler = httpHandler });
             var client  = new TelemetryService.TelemetryServiceClient(channel);
+            var grpcResponse = client.SendDeviceTracking(message);
             
-            client.SendDeviceTracking(message);
+            if (grpcResponse is not null)
+                _logger.LogInformation($"server response: {JsonSerializer.Serialize(grpcResponse)}");
+            else
+                _logger.LogError($"something went wrong with the gRPC server!");
 
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
