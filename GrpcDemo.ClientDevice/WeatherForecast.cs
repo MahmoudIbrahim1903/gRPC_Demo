@@ -1,4 +1,4 @@
-namespace GrpcDemo.ClientDevice1
+namespace GrpcDemo.ClientDevice
 {
     public class WeatherForecast
     {

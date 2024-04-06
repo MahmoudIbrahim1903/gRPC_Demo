@@ -4,7 +4,7 @@ using Grpc.Net.Client;
 using GrpcDemo.Server.Protos;
 using Microsoft.AspNetCore.Mvc;
 
-namespace GrpcDemo.ClientDevice1.Controllers
+namespace GrpcDemo.ClientDevice.Controllers
 {
     [ApiController]
     [Route("[controller]")]
