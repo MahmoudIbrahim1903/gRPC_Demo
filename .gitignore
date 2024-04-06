@@ -7,3 +7,5 @@
 /GrpcDemo.ClientDevice1/obj
 /GrpcDemo.Server/bin/Debug/net6.0
 /GrpcDemo.Server/obj
+/GrpcDemo.ClientDevice/bin/Debug/net6.0
+/GrpcDemo.ClientDevice/obj
