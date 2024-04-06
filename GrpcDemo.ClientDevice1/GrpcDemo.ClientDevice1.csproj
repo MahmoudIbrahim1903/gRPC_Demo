@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Grpc.AspNetCore" Version="2.49.0" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="..\GrpcDemo.Server\Protos\models.proto" GrpcServices="None">
+      <Link>Protos\models.proto</Link>
+    </Protobuf>
+    <Protobuf Include="..\GrpcDemo.Server\Protos\telemetryService.proto" GrpcServices="Client">
+      <Link>Protos\telemetryService.proto</Link>
+    </Protobuf>
+  </ItemGroup>
+
+</Project>

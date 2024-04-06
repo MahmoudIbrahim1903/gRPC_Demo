@@ -1,0 +1,8 @@
+syntax = "proto3";
+option csharp_namespace = "GrpcDemo.Server.Protos";
+
+import "models.proto";
+
+service TelemetryService{
+	rpc SendDeviceTracking (TrackingMessage) returns (TrackingResponse);
+}
