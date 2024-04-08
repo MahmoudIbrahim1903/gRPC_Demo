@@ -24,3 +24,15 @@ message Location{
 message TrackingResponse{
 	bool success = 1;
 }
+
+message PulseMessage{
+	int32 clientId = 1;
+	ClientStatus clientStatus = 2;
+	google.protobuf.Timestamp messageDate = 3;
+}
+
+enum ClientStatus{
+	INVALID = 0;
+	ACTIVE = 1;
+	FAILURE = 3;
+}

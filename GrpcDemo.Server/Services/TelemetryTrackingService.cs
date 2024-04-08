@@ -1,4 +1,5 @@
-﻿using Grpc.Core;
+﻿using Google.Protobuf.WellKnownTypes;
+using Grpc.Core;
 using GrpcDemo.Server.Protos;
 using System.Text.Json;
 
@@ -32,6 +33,21 @@ namespace GrpcDemo.Server.Services
                     Success = false
                 });
             }
+        }
+
+        public override async Task<Empty> KeepAlive(IAsyncStreamReader<PulseMessage> requestStream, ServerCallContext context)
+        {   
+            //create new thread. avoid using the main thread as we might need it for other implementation
+            var task = Task.Run(async () => {
+                //wait for each message the client send and once you receive a message start processing
+                await foreach (var item in requestStream.ReadAllAsync())
+                {
+                    _logger.LogInformation($"keep alive message received from {item.ClientId} with status: {item.ClientStatus.ToString()} at {item.MessageDate.ToDateTime()}");
+                }
+            });
+
+            await task;
+            return new Empty();
         }
     }
 }

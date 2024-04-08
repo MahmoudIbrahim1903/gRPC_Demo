@@ -2,7 +2,9 @@ syntax = "proto3";
 option csharp_namespace = "GrpcDemo.Server.Protos";
 
 import "models.proto";
+import "google/protobuf/empty.proto";
 
 service TelemetryService{
 	rpc SendDeviceTracking (TrackingMessage) returns (TrackingResponse);
+	rpc KeepAlive (stream PulseMessage) returns (google.protobuf.Empty);
 }
