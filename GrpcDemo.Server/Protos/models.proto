@@ -2,6 +2,7 @@ syntax = "proto3";
 option csharp_namespace = "GrpcDemo.Server.Protos";
 
 import "google/protobuf/timestamp.proto";
+//import "enums.proto";
 
 message TrackingMessage{
 	int32 deviceId = 1;
@@ -31,8 +32,20 @@ message PulseMessage{
 	google.protobuf.Timestamp messageDate = 3;
 }
 
+message NotificationMessage{
+	int32 deviceId = 1;
+	google.protobuf.Timestamp subscriptionDate = 2;
+}
+
+message NotificationResponse{
+	string notificationHeader = 1;
+	string notificationBody = 2;
+	google.protobuf.Timestamp notificationDate = 3;
+}
+
+//enums
 enum ClientStatus{
 	INVALID = 0;
 	ACTIVE = 1;
-	FAILURE = 3;
+	FAILURE = 2;
 }

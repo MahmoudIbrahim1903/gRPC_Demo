@@ -49,5 +49,26 @@ namespace GrpcDemo.Server.Services
             await task;
             return new Empty();
         }
+
+        public override async Task SubscribeNotification(NotificationMessage request, IServerStreamWriter<NotificationResponse> responseStream, ServerCallContext context)
+        {
+            Random random = new Random();
+            var task = Task.Run(async() =>
+            {
+                while (!context.CancellationToken.IsCancellationRequested)
+                {
+                    await responseStream.WriteAsync(new NotificationResponse
+                    {
+                        NotificationHeader = $"The header of notification no. {random.Next()}",
+                        NotificationBody = $"The body of notification no. {random.Next()}",
+                        NotificationDate = Timestamp.FromDateTime(DateTime.UtcNow)
+                    });
+
+                    await Task.Delay(10000);
+                }
+            });
+
+            await task;
+        }
     }
 }
